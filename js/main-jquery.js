@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#lblNgayHienTai').text(new Date().toLocaleDateString('en-GB'));
 
     // 0. Common
     let hoTen = ""
@@ -65,15 +66,15 @@ $(document).ready(function () {
 <tr>
     <td>${++count}</td>
     <td>${hoTen}</td>
-    <td>${ngaySinh.toISOString().split("T")[0]}</td>
+    <td>${ngaySinh.toLocaleDateString('en-GB')}</td>
     <td>${gioiTinh}</td>
-    <td>${dsNgonNgu}</td>
+    <td>${dsNgonNgu.join(', ')}</td>
     <td>${soDienThoai}</td>
     <td>${email}</td>
     <td>${khoaHoc}</td>
     <td>${hocPhi}</td>
     <td class="text-center">
-        <img src="../images/${tenAnhDaiDien}" class="rounded-circle"
+        <img src="../images/${tenAnhDaiDien}" alt="" class="rounded-circle"
             style="width: 50px; height: 50px;">
     </td>
 </tr>
@@ -92,6 +93,7 @@ $(document).ready(function () {
     function clearForm() {
         $('#myForm').trigger('reset')
         clearValues()
+        $('#lblTuoi').text("--");
         clearErrorById('errHoTen')
         clearErrorById('errSoDienThoai')
         clearErrorById('errEmail')
@@ -109,11 +111,11 @@ $(document).ready(function () {
         const inputValue = $('#txtHoTen').val()
         const errId = 'errHoTen'
         if (inputValue === "") {
-            return showErrorById(errId, "Empty!")
+            return showErrorById(errId, "Không được bỏ trống")
         }
-        const regex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)+$/
+        const regex = /^[\p{L}\s]+$/u
         if (!regex.test(inputValue)) {
-            return showErrorById(errId, "Invalid!")
+            return showErrorById(errId, "Không hợp lệ")
         }
         hoTen = inputValue
         return clearErrorById(errId)
@@ -125,11 +127,11 @@ $(document).ready(function () {
         const inputValue = $('#txtSoDienThoai').val()
         const errId = 'errSoDienThoai'
         if (inputValue === "") {
-            return showErrorById(errId, "Empty!")
+            return showErrorById(errId, "Không được bỏ trống")
         }
-        const regex = /^(01|03|09)\d{2}\.\d{3}\.\d{3}$/
+        const regex = /^(03|05|07|08|09)\d{8}$/
         if (!regex.test(inputValue)) {
-            return showErrorById(errId, "Invalid!")
+            return showErrorById(errId, "Không hợp lệ")
         }
         soDienThoai = inputValue
         return clearErrorById(errId)
@@ -141,11 +143,11 @@ $(document).ready(function () {
         const inputValue = $('#txtEmail').val()
         const errId = 'errEmail'
         if (inputValue === "") {
-            return showErrorById(errId, "Empty!")
+            return showErrorById(errId, "Không được bỏ trống")
         }
         const regex = /^[a-zA-Z.-][0-9a-zA-Z.-]{5,}@gmail\.com$/i
         if (!regex.test(inputValue)) {
-            return showErrorById(errId, "Invalid!")
+            return showErrorById(errId, "Không hợp lệ")
         }
         email = inputValue
         return clearErrorById(errId)
@@ -158,10 +160,15 @@ $(document).ready(function () {
         const inputValue = $('#txtNgaySinh').val()
         const errId = 'errNgaySinh'
         if (inputValue === "") {
+            $('#lblTuoi').text("--"); // Reset số tuổi nếu để trống
             return showErrorById(errId, "Date not selected or invalid!")
         }
         ngaySinh = new Date(inputValue)
         const age = new Date().getFullYear() - ngaySinh.getFullYear()
+        
+        // Đẩy số tuổi ra màn hình hiển thị
+        $('#lblTuoi').text(age);
+
         if (age < 18) {
             return showErrorById(errId, "Must be at least 18 years old!")
         }

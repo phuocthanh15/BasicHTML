@@ -63,9 +63,9 @@ function saveData() {
 <tr>
     <td>${++count}</td>
     <td>${hoTen}</td>
-    <td>${ngaySinh.toISOString().split("T")[0]}</td>
+    <td>${ngaySinh.toLocaleDateString('en-GB')}</td>
     <td>${gioiTinh}</td>
-    <td>${dsNgonNgu}</td>
+    <td>${dsNgonNgu.join(', ')}</td>
     <td>${soDienThoai}</td>
     <td>${email}</td>
     <td>${khoaHoc}</td>
@@ -92,6 +92,7 @@ document.querySelector('#btnXoa').addEventListener('click', clearForm)
 function clearForm() {
     document.querySelector('#myForm').reset()
     clearValues()
+    document.getElementById('lblTuoi').innerText = "--";
     clearErrorById('errHoTen')
     clearErrorById('errSoDienThoai')
     clearErrorById('errEmail')
@@ -109,12 +110,12 @@ function validateHoTen() {
     const inputValue = document.querySelector('#txtHoTen').value
     const errId = 'errHoTen'
     if (inputValue === "") {
-        return showErrorById(errId, "Empty!")
+        return showErrorById(errId, "Không được bỏ trống")
     }
     // Example: Y La
-    const regex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)+$/
+    const regex = /^[\p{L}\s]+$/u
     if (!regex.test(inputValue)) {
-        return showErrorById(errId, "Invalid!")
+        return showErrorById(errId, "Không hợp lệ")
     }
     hoTen = inputValue
     return clearErrorById(errId)
@@ -126,12 +127,12 @@ function validateSoDienThoai() {
     const inputValue = document.querySelector('#txtSoDienThoai').value
     const errId = 'errSoDienThoai'
     if (inputValue === "") {
-        return showErrorById(errId, "Empty!")
+        return showErrorById(errId, "Không được bỏ trống")
     }
     // Example: 0399.123.456
-    const regex = /^(01|03|09)\d{2}\.\d{3}\.\d{3}$/
+    const regex = /^(03|05|07|08|09)\d{8}$/
     if (!regex.test(inputValue)) {
-        return showErrorById(errId, "Invalid!")
+        return showErrorById(errId, "Không hợp lệ")
     }
     soDienThoai = inputValue
     return clearErrorById(errId)
@@ -143,13 +144,11 @@ function validateEmail() {
     const inputValue = document.querySelector('#txtEmail').value
     const errId = 'errEmail'
     if (inputValue === "") {
-        return showErrorById(errId, "Empty!")
+        return showErrorById(errId, "Không được bỏ trống")
     }
-    // Example: alpha-99.HERO@gmail.com
-    // (case-insensitive; least 6 chars without digit; fixed: @gmail.com)
     const regex = /^[a-zA-Z.-][0-9a-zA-Z.-]{5,}@gmail\.com$/i
     if (!regex.test(inputValue)) {
-        return showErrorById(errId, "Invalid!")
+        return showErrorById(errId, "Không hợp lệ")
     }
     email = inputValue
     return clearErrorById(errId)
@@ -162,10 +161,14 @@ function validateNgaySinh() {
     const inputValue = document.querySelector('#txtNgaySinh').value
     const errId = 'errNgaySinh'
     if (inputValue === "") {
+        document.getElementById('lblTuoi').innerText = "--"; 
         return showErrorById(errId, "Date not selected or invalid!")
     }
     ngaySinh = new Date(inputValue)
     const age = new Date().getFullYear() - ngaySinh.getFullYear()
+    
+    document.getElementById('lblTuoi').innerText = age;
+
     if (age < 18) {
         return showErrorById(errId, "Must be at least 18 years old!")
     }
@@ -173,7 +176,6 @@ function validateNgaySinh() {
 }
 
 
-// radio
 document.querySelectorAll('input[name="gioiTinh"]').forEach(radio => {
     radio.addEventListener('change', () => {
         gioiTinh = document.querySelector('input[name="gioiTinh"]:checked').value
@@ -195,7 +197,6 @@ document.querySelectorAll('input[name="ngonNgu"]').forEach(checkbox => {
 })
 
 
-// select
 document.querySelector('#sltKhoaHoc').addEventListener('change', validateKhoaHoc)
 function validateKhoaHoc() {
     const inputValue = document.querySelector('#sltKhoaHoc').value
@@ -226,7 +227,6 @@ function validateKhoaHoc() {
 }
 
 
-// file
 document.querySelector('#fileAnhDaiDien').addEventListener('change', validateAnhDaiDien)
 function validateAnhDaiDien() {
     const inputValue = document.querySelector('#fileAnhDaiDien').value
@@ -242,3 +242,4 @@ function validateAnhDaiDien() {
     tenAnhDaiDien = name
     return clearErrorById(errId)
 }
+document.getElementById('lblNgayHienTai').innerText = new Date().toLocaleDateString('en-GB');

@@ -147,6 +147,9 @@
                                     <input id="txtNgaySinh" name="inputName" type="date" class="form-control"
                                         placeholder="" />
                                     <span id="errNgaySinh" class="text-danger fst-italic"></span>
+                                    <div class="text-secondary small mt-1">
+                                        Ngày hiện tại: <span id="lblNgayHienTai" class="fw-bold"></span> | Tuổi của bạn: <span id="lblTuoi" class="fw-bold text-primary">--</span>
+                                    </div>
                                     <script>
                                         document.querySelector('#txtNgaySinh').value = new Date().toISOString().split("T")[0]
                                     </script>
