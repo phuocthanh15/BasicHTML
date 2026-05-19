@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal-Form Demo</title>
+
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+    <script src="../libs/jquery/jquery-4.0.0.min.js"></script>
+
+    <style>
+        .nav-link:hover {
+            color: red !important;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container border border-dark">
+        <div class="row">
+            <img src="../images/banner.jpg" class="img-fluid px-0" style="height: 350px;" alt="">
+        </div>
+        <div class="row border-top border-dark">
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="collapsibleNavId">
+                        <ul class="navbar-nav me-auto mt-2 mt-lg-0 gap-5 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-primary" href="#">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-primary" href="#" id="dropdownId"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                    <a class="dropdown-item" href="#">Courses</a>
+                                    <a class="dropdown-item" href="#">Website</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#myModal">Register</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="row border-top border-dark px-3">
+            <h3 class="text-success text-center fw-bold mt-2">DANH SÁCH HỌC VIÊN</h3>
+            <table class="table table-bordered align-middle">
+                <thead class="table-primary fw-bold text-center">
+                    <tr>
+                        <td>STT</td>
+                        <td>Họ và tên</td>
+                        <td>Ngày sinh</td>
+                        <td>Giới tính</td>
+                        <td>Ngôn ngữ</td>
+                        <td>Số điện thoại</td>
+                        <td>Email</td>
+                        <td>Khoá học</td>
+                        <td>Học phí</td>
+                        <td>Ảnh đại điện</td>
+                    </tr>
+                </thead>
+                <tbody id="myData">
+                    <tr>
+                        <td>1</td>
+                        <td>Pham Thanh Phong</td>
+                        <td>19/01/1999</td>
+                        <td>Nam</td>
+                        <td>Tiếng Việt</td>
+                        <td>0123-456-789</td>
+                        <td>tung.99_pham@gmail.com</td>
+                        <td>Trí tuệ nhân tạo</td>
+                        <td>4,000,000</td>
+                        <td class="text-center">
+                            <img src="../images/default-avatar.png" alt="" class="rounded-circle"
+                                style="width: 50px; height: 50px;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row border-top border-dark bg-primary text-white py-3">
+            <div class="col">Copyright &copy; 2026 by Tung-PT</div>
+            <div class="col">Họ và tên sinh viên</div>
+            <div class="col">Mã số sinh viên</div>
+            <div class="col">Mã lớp</div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5 class="modal-title col-11 text-center" id="modalTitleId">
+                                THÔNG TIN ĐĂNG KÝ
+                            </h5>
+                            <button type="button" class="btn-close col" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form id="myForm" action="">
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Họ và tên</label>
+                                <div class="col-8">
+                                    <input id="txtHoTen" name="inputName" type="text" class="form-control"
+                                        placeholder="" />
+                                    <span id="errHoTen" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Số điện thoại</label>
+                                <div class="col-8">
+                                    <input id="txtSoDienThoai" name="inputName" type="tel" class="form-control"
+                                        placeholder="" />
+                                    <span id="errSoDienThoai" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Email</label>
+                                <div class="col-8">
+                                    <input id="txtEmail" name="inputName" type="email" class="form-control"
+                                        placeholder="" />
+                                    <span id="errEmail" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Ngày sinh</label>
+                                <div class="col-8">
+                                    <input id="txtNgaySinh" name="inputName" type="date" class="form-control"
+                                        placeholder="" />
+                                    <span id="errNgaySinh" class="text-danger fst-italic"></span>
+                                    <script>
+                                        document.querySelector('#txtNgaySinh').value = new Date().toISOString().split("T")[0]
+                                    </script>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Giới tính</label>
+                                <div class="col-8">
+                                    <div class="form-check form-check-inline">
+                                        <input name="gioiTinh" class="form-check-input" type="radio" id=""
+                                            value="Nam" />
+                                        <label class="form-check-label" for="">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="gioiTinh" class="form-check-input" type="radio" id="" value="Nữ" />
+                                        <label class="form-check-label" for="">Nữ</label>
+                                    </div>
+                                    <br>
+                                    <span id="errGioiTinh" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Ngôn ngữ</label>
+                                <div class="col-8">
+                                    <div class="form-check form-check-inline">
+                                        <input name="ngonNgu" class="form-check-input" type="checkbox" id="" />
+                                        <label class="form-check-label" for="">Tiếng Việt</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="ngonNgu" class="form-check-input" type="checkbox" id="" />
+                                        <label class="form-check-label" for="">Tiếng Anh</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="ngonNgu" class="form-check-input" type="checkbox" id="" />
+                                        <label class="form-check-label" for="">Tiếng Trung</label>
+                                    </div>
+                                    <br>
+                                    <span id="errNgonNgu" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Khoá học</label>
+                                <div class="col-8">
+                                    <select id="sltKhoaHoc" class="form-select form-select-lg" name="">
+                                        <option value="" selected disabled class="text-center">-- Chọn khoá học --
+                                        </option>
+                                        <option value="1">Trí tuệ nhân tạo</option>
+                                        <option value="2">Học máy</option>
+                                        <option value="3">Học sâu</option>
+                                        <option value="4">Dữ liệu lớn</option>
+                                    </select>
+                                    <span id="errKhoaHoc" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Học phí</label>
+                                <div class="col-8">
+                                    <input id="txtHocPhi" name="inputName" type="text" class="form-control" disabled />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label" for="inputName">Ảnh đại diện</label>
+                                <div class="col-8">
+                                    <input id="fileAnhDaiDien" name="inputName" type="file" class="form-control"
+                                        placeholder="" />
+                                    <span id="errAnhDaiDien" class="text-danger fst-italic"></span>
+                                </div>
+                                <div class="col text-danger fw-bold">*</div>
+                            </div>
+
+                            <div class="mb-3 row justify-content-center gap-5 mt-5">
+                                <button id="btnXoa" type="reset"
+                                    class="col-2 btn btn-secondary rounded-pill">Xoá</button>
+                                <button id="btnLuu" type="button"
+                                    class="col-2 btn btn-primary rounded-pill">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main-vanilla.js"></script>
+    <!-- <script src="../js/main-jquery.js"></script> -->
+</body>
+
+</html>
